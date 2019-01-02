@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>When _not_ to use arrows =></title>
+  </head>
+  <body>
+    <style>
+      button {
+        font-size: 100px;
+      }
+      .on {
+        background: #ffc600;
+      }
+    </style>
+    <button id="pushy">Push Me</button>
+
+    <script>
+      // When you really need 'this'
+      // 'this' is Window
+      const button = document.querySelector("#pushy");
+      // button.addEventListener("click", () => {
+      button.addEventListener("click", function() {
+        this.classList.toggle("on");
+      });
+
+      // When you need a method to bind to an object
+      // 'this' is also Window
+      const person = {
+        points: 23,
+        // score: () => {
+        // you can use this
+        // score: function() {
+        //   this.points++;
+        // }
+        // or just use
+        score() {
+          this.points++;
+        }
+      };
+
+      // When you need to add a prototype method
+      class Car {
+        constructor(make, color) {
+          this.make = make;
+          this.color = color;
+        }
+      }
+
+      const beemer = new Car("bmw", "white");
+      const subie = new Car("Subaru", "blue");
+
+      // Car.prototype.summarize = () => {
+      Car.prototype.summarize = function() {
+        return `This car is ${this.make} in the clor ${this.color}`;
+      };
+
+      // When you need argument object
+      // const orderChildren = () => {
+      const orderChildren = function() {
+        const children = Array.from(arguments);
+
+        return children.map((child, i) => {
+          return `${child} was child #${i + 1}`;
+        });
+
+        console.log(arguments);
+      };
+    </script>
+  </body>
+</html>

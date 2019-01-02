@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <script>
+      console.log(0.1 + 0.2 == 0.30000000000000004);
+      /*
+      This is true because integers values are treated as 32-bit ints
+      and some implementations even store it that way
+      until they are asked to perform an instruction that's valid on a Number not a 32-bit ints
+      could be important for bit-wise operations
+      */
+
+      r = Math.sin(3.5);
+      let circumference = 2 * Math.PI * r;
+
+      // standard arithmetic operators are supported
+      // also, you can use Math for advanced mathematical functions and constants
+
+      console.log(parseInt("123", 10)); //123
+      console.log(parseInt("010", 10)); //10
+
+      // using parseInt(), you can convert string to int
+      // this takes the base for the conversion as an optional second argument, WHICH YOU SHOULD ALWAYS PROVIDE
+
+      console.log(parseInt("010")); // 10 in chrome, but come on
+      console.log(parseInt("0x10")); // hex due to 0x
+      // in older browsers, strings begins with 0 are assumed to be in octal
+      // this is no longer the case for the most part, but hex is still there
+
+      console.log(parseInt("11", 2));
+      // change base to convert binary number to int
+
+      // you can also do parseFloat() to convert float to int
+      // unlike parseInt(), parseFloat always use base 10
+
+      console.log(+"42");
+      console.log(+"010");
+      console.log(+"0x10");
+      // unary + operator can also convert values to numbers
+
+      parseInt("haHAA", 10); //N aN
+      // you get NAN (Not a Number) if the string is non-numeric
+
+      console.log(NaN + 5); // NaN
+      // if any operant is NaN, the result will also be NaN
+
+      console.log(isNaN(NaN)); // true
+      // to test for NaN
+
+      console.log(1 / 0); // Infinity
+      console.log(-1 / 0); // -Infinity
+      // special value for +/- Inifity in js
+
+      console.log(isFinite(1 / 0)); // false
+      console.log(isFinite(-Infinity)); // false
+      console.log(isFinite(NaN)); // false
+      // test for +/-Infinity and NaN
+
+      console.log(parseInt("10.2abc"));
+      console.log(parseFloat("10.2abc"));
+      console.log(+"10.2abc");
+      // parseInt() and parseFloat() parse a string until they reach a character that isn't valid for the specified number format
+      // then return the number parsed up to that point
+      // '+' operator simply converts the string to NaN if there is an invalid char in the string
+    </script>
+  </body>
+</html>
