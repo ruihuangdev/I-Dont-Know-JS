@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Operators"
+      >Link</a
+    >
+    <script>
+      // JS numeric operators are +, -, *, / and %
+      // (% is remainder operator, not to be confused with modulo)
+      // values are assigned using =
+      // compound operator (+= or -=) extends to x = x operator y
+
+      let x = 0;
+      console.log((x += 5));
+      x = 0;
+      console.log((x = x + 5));
+
+      // you can also use ++ and -- to increment and decrement
+      // these can be used both as a prefix or as a postfix
+
+      // + operator also does string concatenation
+
+      console.log("4Head" + " LUL"); // 4Head LUL
+
+      console.log("3" + 4 + 5);
+      console.log(3 + 4 + "5");
+      // when adding a string to a number (or other value) everything is converted to string first
+
+      console.log("" + 100 + 1);
+      // adding an empty string to something is a useful way to convert that something to a string
+
+      // comparisons in JS can be done using <, > <= and >=
+      // These work for both strings and numbers
+
+      // Equality is a little tricky
+      // == operator performs type coercion if you give it different types
+      console.log(123 == "123"); //true
+      console.log(1 == true); //true
+
+      // to avoid that, use ===
+      console.log(123 === "123"); //false
+      console.log(1 === true); //false
+
+      // similarly, there are also != and !== operators
+
+      // don't forget JS also has bitwise operators
+    </script>
+  </body>
+</html>

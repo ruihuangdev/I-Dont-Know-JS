@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Strings"
+      >link</a
+    >
+    <script>
+      /*
+        strings in js are sequences of unicode chararcters
+        localization is on the easier side
+        to be more precise, they are sequences of UTF-16 code unit.
+        Each code unit is represented by a 16-bit number
+        Each Unicode character is represented by either 1 or 2 code unregisterModule
+
+        To represent a single character, just use a string consist of that single character
+      */
+
+      console.log("haHAA".length); // 5
+      // To find the length of a string (in code units)
+
+      console.log("haHAA".charAt(0)); // "h"
+      console.log("haHAA Kappa".replace("haHAA", "4Head")); // "4Head Kappa"
+      console.log("haHAA".toUpperCase()); // "HAHAA"
+      // you can use strings like objects too.
+      // They have methods that allow you to manipulate the string and access info about import PropTypes from 'prop-types'
+    </script>
+  </body>
+</html>
