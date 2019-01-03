@@ -12,26 +12,24 @@
       >Link</a
     >
     <script>
-      // according to the spce, numbers in js are 'double-precision 64-bit format IEEE 754 values'
+      // according to the spec, numbers in js are 'double-precision 64-bit format IEEE 754 values'
       // There are no such thing as an integer in js
 
       console.log(0.1 + 0.2 == 0.30000000000000004);
       /*
       This is true because integers values are treated as 32-bit ints
       and some implementations even store it that way
-      until they are asked to perform an instruction that's valid on a Number not a 32-bit ints
+      until they are asked to perform an instruction that's valid on a Number but not a 32-bit int
       could be important for bit-wise operations
       */
 
-      r = Math.sin(3.5);
-      let circumference = 2 * Math.PI * r;
-
+      console.log(Math.sin(3.5));
+      console.log(2 * Math.PI * r);
       // standard arithmetic operators are supported
       // also, you can use Math for advanced mathematical functions and constants
 
       console.log(parseInt("123", 10)); //123
       console.log(parseInt("010", 10)); //10
-
       // using parseInt(), you can convert string to int
       // this takes the base for the conversion as an optional second argument, WHICH YOU SHOULD ALWAYS PROVIDE
 
@@ -51,7 +49,7 @@
       console.log(+"0x10");
       // unary + operator can also convert values to numbers
 
-      parseInt("haHAA", 10); //N aN
+      parseInt("haHAA", 10); //NaN
       // you get NAN (Not a Number) if the string is non-numeric
 
       console.log(NaN + 5); // NaN
