@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Objects"
+      >Link</a
+    >
+    <script>
+      // JS Objects can be thought of as simple collections of name value paris
+      // similar to dictionaries in Python, HashMaps in Java, Associative array in PHP (the three that I actually know)
+
+      // since everything except core types is an object, any JS program involves a lot of hash table look up
+      // the name part is a JS string, while the value can be any JS value type (includeing object)
+      // this allows you to build data structure of arbitary complexity
+
+      let obj = new Object();
+      let obj2 = {};
+      // these are the two ways to create an empty object
+      // they are semantically equivalent.
+      // ob2 is called a object literal syntax, a bit more convenient.
+      // it is also the core of JSON format and should be preferred at all times
+
+      // using object literal to initialize an object in its entirety
+      let obj3 = {
+        name: "carrot",
+        _for: "Max", // 'for' is a reserved word, use '_for' instead.
+        details: {
+          color: "orange",
+          size: 12
+        }
+      };
+
+      // attribute access can be chained together
+      console.log(obj3.details.color); // orange
+      console.log(obj3["details"]["size"]); // 12
+
+      // creating an object prototype 'Person' and an instance of that prototype, 'you'
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      // define the object
+      let you = new Person("You", 24);
+      // we just created a new person called "you" aged 24
+
+      // once created, an object's properties can again be accessed in one of two ways
+      // 1st, dot notation
+      let obj4 = {};
+      obj4.name = "Simon";
+      let name2 = obj4.name;
+
+      // 2nd bracket notation
+      let obj5 = {};
+
+      obj5["name"] = "Simon2";
+      let name3 = obj5["name"];
+      // can use a varibale to define a key
+      let user = prompt("what the key?");
+      obj5["user"] = prompt("what the value?");
+
+      // These two are also semantically equivalent
+      // bracket notation has the advantage that the name of the propert is provided as a string
+      // that means it can be calculated at run-time
+      // disadvantage of this is some JS engine and minifier doesn't recogonize it
+      // it can also be used to set and get properties with names that are reserved words
+      let obj6 = {};
+      obj6.for = "simon31"; // syntax error
+      obj6["for"] = "simon32"; // gucci
+
+      // starting in ES5, reserved words may be used as object property "in the buff"
+      // similarly, in ES5, object keys can be defined by the variable using bracket notation upon being created
+      // {[phontType]: 12345} is possible instead of
+      // let userPhone = {}; userPhone[phoneType] = 12345;
+    </script>
+  </body>
+</html>
