@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Arrays"
+      >Link</a
+    >
+    <script>
+      // arrays in JS are actually a special type of object
+      // they work very much like regular objects, where numerical properties can naturally be accessed only using [] syntax
+      // they also have a magical property called 'length'
+      // it always return one more than the highest index in the array
+
+      let a = new Array();
+      a[0] = "dog";
+      a[1] = "cat";
+      a[2] = "fish";
+      console.log(a.length); // 3
+
+      // a differnt (more convenient) way is to use array literal
+      let b = ["dog", "cat", "hen"];
+      console.log(b.length); // 3
+
+      // array.length isn't necessarily the number of items in the array
+      let c = ["dog", "cat", "hen"];
+      c[10] = "duck";
+      console.log(c.length); // 11
+
+      // when querying a non-existent array index, a 'undefined' is returned
+      console.log(typeof c[5]); // undefined
+
+      // you can iterate over an array using a for loop
+      for (let i = 0; i < c.length; i++) {
+        console.log(c[i]);
+      }
+
+      // ES6 introduced the more concise for of loop of iterable objects such as arrays
+      for (const currentValue of c) {
+        console.log(currentValue);
+      }
+
+      // there is also the for in loop.
+      // This does not iterate over the array elements, but the array indices
+      // Furthermore, if someone added new properties to Array.prototype, they would also be iterated over by such a loop
+      // Thus this loop type is not recommended for arrays
+
+      // another way of iterating is ES6 foreach loop
+      ["dog", "cat", "hen"].forEach(function(currentValue, index, array) {
+        console.log(currentValue); // dog, cat, hen
+        console.log(index); // 0, 1, 2
+        console.log(array[index]); // dog, cat, hen
+      });
+
+      // to append an item to an array, do
+      c.push(item);
+
+      // there are a lot of array methods, here are some examples
+    </script>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Method name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>a.toString()</code></td>
+          <td>
+            Returns a string with the <code>toString()</code> of each element
+            separated by commas.
+          </td>
+        </tr>
+        <tr>
+          <td><code>a.toLocaleString()</code></td>
+          <td>
+            Returns a string with the <code>toLocaleString()</code> of each
+            element separated by commas.
+          </td>
+        </tr>
+        <tr>
+          <td><code>a.concat(item1[, item2[, ...[, itemN]]])</code></td>
+          <td>Returns a new array with the items added on to it.</td>
+        </tr>
+        <tr>
+          <td><code>a.join(sep)</code></td>
+          <td>
+            Converts the array to a string — with values delimited by the
+            <code>sep</code> param
+          </td>
+        </tr>
+        <tr>
+          <td><code>a.pop()</code></td>
+          <td>Removes and returns the last item.</td>
+        </tr>
+        <tr>
+          <td><code>a.push(item1, ..., itemN)</code></td>
+          <td>Appends items to the end of the array.</td>
+        </tr>
+        <tr>
+          <td><code>a.reverse()</code></td>
+          <td>Reverses the array.</td>
+        </tr>
+        <tr>
+          <td><code>a.shift()</code></td>
+          <td>Removes and returns the first item.</td>
+        </tr>
+        <tr>
+          <td><code>a.slice(start[, end])</code></td>
+          <td>Returns a sub-array.</td>
+        </tr>
+        <tr>
+          <td><code>a.sort([cmpfn])</code></td>
+          <td>Takes an optional comparison function.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>a.splice(start, delcount[, item1[, ...[, itemN]]])</code>
+          </td>
+          <td>
+            Lets you modify an array by deleting a section and replacing it with
+            more items.
+          </td>
+        </tr>
+        <tr>
+          <td><code>a.unshift(item1[, item2[, ...[, itemN]]])</code></td>
+          <td>Prepends items to the start of the array.</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

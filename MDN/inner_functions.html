@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Inner_functions"
+      >Link</a
+    >
+    <script>
+      // JS function declaration are allowed inside other functions
+      // we did this in makePerson function in custom_objects section
+      // An important detail of nested functions in JS is that they can access vars in their parent function's scope
+
+      function parentFunc() {
+        let a = 1;
+
+        function nestedFunc() {
+          let b = 4; // parentFunc can't use this
+          return a + b;
+        }
+
+        return nestedFunc();
+      } // returns 5
+
+      // This can help us write more maintainable code
+      // If a called function relies on one or two other functions that are not useful to any other part of your code
+      // You can nest those utolity functions inside it
+      // This keeps the number of functions that are in the global scope low, that's always a good thing
+
+      // When writing complex code, it is often tempting to use global variables to share values between functions
+      // This leads to unmaintainable code
+      // Nested functions can share variables in their parent, so you can use that mechanism to couple functions togther
+      // Use with caution
+    </script>
+  </body>
+</html>

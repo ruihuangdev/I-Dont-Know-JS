@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Functions"
+      >Link</a
+    >
+    <script>
+      // Functions and objects are the core components of understanding JS
+      // Here is the most basic function
+      function add(x, y) {
+        let total = x + y;
+        return total;
+      }
+      // A JS function can take 0 or more named parameters
+      // The function body can contain as many statements as you like
+      // you can declare its own variables with are local to that funtion
+      // RETURN statement can be used to return a value at any time, terminating the function
+      // if no return statement is used or an empty return with no value is used, JS returns UNDEFINED
+
+      // The named parameters are more like guidelines than anything else
+      // you can call a function without passing the parameters it expects, and they will be set to undefined
+
+      console.log(add()); // NaN, because you can't perform addition on undefined
+
+      // you can also pass in more args than the function is expecting
+      console.log(add(2, 3, 4)); // returns 2+3, 4 is ignored
+
+      // within the function, it has access to the additional variables stored as arguments
+      // it is an array-like object holding all of the values passed  to the function
+
+      // here is the add function rewritten, let's write an average function
+      function avg() {
+        console.log(arguments);
+        let sum = 0;
+        for (let i = 0; i < arguments.length; i++) {
+          sum += arguments[i];
+        }
+        return sum / arguments.length;
+      }
+
+      console.log(avg(2, 3, 4, 5));
+
+      // To reduce the code, we can use the rest parameter syntax
+      // This allows us to pass in any number of args into the function
+      // it will include within that variable the entire list of uncaptured args that the function was called with
+      // with the addition of a for...of loop, we can rewrite it as
+      function avg2(...args) {
+        let sum = 0;
+        for (let value of args) {
+          sum += value;
+        }
+        return sum / args.length;
+      }
+      console.log(avg2(2, 3, 4, 5));
+      // In this code, the variable args holds all the values that was passed into the function
+      // rest parameter will store all the args after its declaration, but not before
+      // what if you wanna find the average of an array? you need to rewrite the function as
+      function avgArray(arr) {
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+          sum += arr[i];
+        }
+        return sum / arr.length;
+      }
+
+      console.log(avgArray([2, 3, 4, 5]));
+
+      // What if we want to use the function we previsouly wrote?
+      // JS lets you call a function with an arbitarty array of arguments, using the apply() method of any function object
+      console.log(avg2.apply(null, [2, 3, 4, 5]));
+      // 2nd arg to apply() is the array to use as rguments, the 1st will be discussed later on
+      // you can also do this using the spread operator
+      // avg2(...number)
+
+      // JS lets you create anonymous functions
+      let avg3 = function() {
+        let sum = 0;
+        for (let i = 0; i < arguments.length; i++) {
+          sum += arguments[i];
+        }
+        return sum / arguments.length;
+      };
+
+      // avg3 and avg2 are sementically equivalent
+      // you can put the function definition anywhere that you would put an expression
+      // this enables a lot of clever tricks
+      // like block scope in C
+
+      let a = 1;
+      let b = 2;
+
+      (function() {
+        let b = 3;
+        a += b;
+      })();
+
+      console.log(a); // 4
+      console.log(b); // 2
+
+      // JS allows you to call functions recursively
+      // This is useful for dealing with tree structures such as those fond in DOM
+
+      function countChars(el) {
+        if (el.nodeType == 3) {
+          // TEXT_NODE
+          return el.nodeValue.length;
+        }
+        let count = 0;
+        for (let i = 0, child; (child = el.childNodes[i]); i++) {
+          count += countChars(child);
+        }
+        return count;
+      }
+
+      // This highlights a potential problem with anonymous functions
+      // how do you call them recursively without a name?
+      // you can name function expressions for this
+      // you can used named Immediately Invoked Function Expressions (IIFEs)
+
+      let charsInBody = (function counter(el) {
+        if (el.nodeType == 3) {
+          // TEXT_NODE
+          return el.nodeValue.length;
+        }
+        let count = 0;
+        for (let i = 0, child; (child = el.childNodes[i]); i++) {
+          count += countChars(child);
+        }
+        return count;
+      })(document.body);
+
+      // The name provided to a function expression as above is only available to the function's own scope
+      // This allows more optimizations to be done by the engine and results in more readable code
+      // the name also shows up in the debugger and some stack traces, which can save you time when debugging
+
+      // Note that JS functions are objects - like everything else in JS
+      // you can add or change properties on them
+    </script>
+  </body>
+</html>

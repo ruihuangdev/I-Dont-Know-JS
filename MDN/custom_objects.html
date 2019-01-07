@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A re-introduction to JavaScript</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Custom_objects"
+      >Link</a
+    >
+    <script>
+      // in classic OOP, objects are collections of data and methods that operate on that data
+      // JS js a prototype-based lang that contains no class statement
+      // Instead, JS uses functions as classes
+      // Let's consider a person object with first and last name fields.
+      // There are two ways to display a name: "Rui Huang" or "Huang, Rui"
+      // We could display the data like this:
+
+      function makePerson(first, last) {
+        return {
+          first: first,
+          last: last
+        };
+      }
+
+      function personFullName(person) {
+        return person.first + " " + person.last;
+      }
+
+      function personFullNameReversed(person) {
+        return person.last + ", " + person.first;
+      }
+
+      let s = makePerson("Rui", "Huang");
+      console.log(personFullName(s));
+      console.log(personFullNameReversed(s));
+
+      // this is the ugly approach as we ended up with a lot of fucntions in the global scope
+      // how do we attache functions to an object? this is easy since functions are objects as well
+
+      function makePerson2(first, last) {
+        return {
+          // ES6 syntax
+          first,
+          last,
+          fullName: function() {
+            return this.first + " " + this.last;
+          },
+          fullNameReversed: function() {
+            return this.last + ", " + this.first;
+          }
+        };
+      }
+      let s2 = makePerson2("Rui", "Huang");
+      console.log(s2.fullName());
+      console.log(s2.fullNameReversed());
+
+      // the THIS keyword, when used inside a function, refers to the current object
+      // What that actually means is specified by the way in the function is called
+      // If you called it using dot notation or bracket notation on an object
+      // that object becomes THIS
+      // If dot notation was not used, THIS refers to global object
+      // THIS is a frequent cause of mistakes, example:
+      let s3 = makePerson2("Rui", "Huang");
+      let fullName = s3.fullName;
+      console.log(fullName()); // undefined undefined
+      // when we call fullName() alone, without using s3.fullName(),
+      // THIS is bound to the global object
+      // since there are no global variables called first or last, we get undefined
+
+      // rewrite makePerson2 with more THIS keyword
+      function Person(first, last) {
+        this.first = first;
+        this.last = last;
+        this.fullName = function() {
+          return this.first + " " + this.last;
+        };
+        this.fullNameReversed = function() {
+          return this.last + ", " + this.first;
+        };
+      }
+      let s4 = new Person("Rui", "Huang");
+      console.log(s4);
+      // here's a new keyword NEW
+      // NEW IS strongly related to THIS
+      // It creates a brand new empty project,
+      // then calls the function specified with THIS set to that new object
+      // Notice that the function specified with THIS does not return a value but merely modfied the THIS object
+      // it's NEW that returns the THIS object
+      // Functions that are designed to be called by NEW are called constructor functions
+      // common practice is to capitalize these functions
+
+      // The improved function still has the pitfall of calling fullName() alone
+      // every time Person() is called, we are creating two new function objects within it
+      // We can rewrite this again
+      function personFullName2() {
+        return this.first + " " + this.last;
+      }
+      function personFullNameReversed2() {
+        return this.last + ", " + this.first;
+      }
+      function Person2(first, last) {
+        this.first = first;
+        this.last = last;
+        this.fullName = personFullName2;
+        this.fullNameReversed = personFullNameReversed2;
+      }
+      // This way, method functions are only created once.
+      // Their references were assigned inside the constructor
+
+      // Further improvment
+      function Person3(first, last) {
+        this.first = first;
+        this.last = last;
+      }
+      Person3.prototype.fullName = function() {
+        return this.first + " " + this.last;
+      };
+      Person3.prototype.fullNameReversed = function() {
+        return this.last + ", " + this.first;
+      };
+      // person3.prototype is an object shared by all instances of person3
+      // It forms part of a lookup chain (special name being 'prototype chain')
+      // Any time you attempt to access a property of Person3 that isn't set
+      // JS will check Person3.prototype to see if that property exists there instead
+      // anything assigned to Person3.prototype becomes available to all instances of that constrcutor via the THIS object
+
+      // JS lets you modify something's prototype at any time in your program
+      // You can add extra methods to existing objects at runtime
+
+      let t = new Person3("Rui", "Huang");
+      // console.log(t.firstNameCaps());
+      // TypeError：t.firstNameCaps is not a function
+
+      Person3.prototype.firstNameCaps = function() {
+        return this.first.toUpperCase();
+      };
+      console.log(t.firstNameCaps()); // RUI
+
+      // You can also add things to the prototype of built-in JS objects
+
+      let str = "Rui";
+      // console.log(str.reversed());
+      // TypeError：str.reversed is not a function
+
+      String.prototype.reversed = function() {
+        let r = "";
+        for (let i = this.length - 1; i >= 0; i--) {
+          r += this[i];
+        }
+        return r;
+      };
+      console.log(str.reversed());
+
+      // this works with string literals too
+      console.log("This can now be reversed".reversed());
+
+      // The prototype forms part of a chain
+      // The root of that chain is Object.prototype whose method include toString()
+      // This is the method that is called when you try to represent an object as a string
+      // This can be used to debug oour Person objects
+      let u = new Person3("Rui", "Huang");
+      console.log(u.toString()); // object Object
+
+      Person3.prototype.toString = function() {
+        return "<Person3: " + this.fullName() + ">";
+      };
+      console.log(u.toString()); // <Person3: Rui Huang>
+
+      // Lets revisit avg.apply() from functions section
+      // avg.apply had a null first arg
+      // the first arg to apply() is the object that should be treated as 'this'
+      // here is a trivial implementation of NEW
+      function trivialNew(constrcutor, ...args) {
+        let o = {}; // create an object
+        constrcutor.apply(o, args);
+        return o;
+      }
+      // this isn't an exact replica of NEW as it doesn't set up the prototype chain
+      // ...args (including the ellipsis) is called the 'rest args'. it contains the rest of the args
+      // therefore
+      let bill = trivialNew(Person3, "William", "Orange");
+      // is almost equivalent to
+      let bill2 = new Person3("William", "Orange");
+
+      // apply() has a sister function call()
+      // it lets you set THIS but taks an expanded arg list as opposed to an array
+      function lastNameCaps() {
+        return this.last.toUpperCase();
+      }
+      let v = new Person3("Rui", "Huang");
+      console.log(lastNameCaps.call(v)); // HUANG
+      // is the same as
+      v.lastNameCaps = lastNameCaps;
+      console.log(v.lastNameCaps()); // HUANG
+    </script>
+  </body>
+</html>
