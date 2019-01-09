@@ -50,17 +50,23 @@
 
       addUpNumbers(10, 23, 52, 34, 12, 13, 123);
 
-      // const name = 'Wes Bos';
-      // for (const char of name) {
-      //   console.log(char);
-      // }
+      // works with strings
+      const name = "Wes Bos";
+      for (const char of name) {
+        console.log(char);
+      }
 
       const ps = document.querySelectorAll("p");
+      // Not a true array, a NodeList, as you already know
+      // console.log(ps);
+      // you can use for of loop instead of converting it to array
       for (const paragraph of ps) {
         paragraph.addEventListener("click", function() {
           console.log(this.textContent);
         });
       }
+
+      // as long as the prototype has iterable, you can use for of loop
     </script>
   </body>
 </html>
