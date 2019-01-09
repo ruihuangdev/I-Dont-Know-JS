@@ -18,20 +18,37 @@
     <script>
       const cuts = ["Chuck", "Brisket", "Shank", "Short Rib"];
 
-      // for (const [i, cut] of cuts.entries()) {
-      //   console.log(`${cut} is the ${i + 1} item`);
-      // }
+      // cuts.entries() returns an array iterator
+      // for example: const meat = cuts.entrues();
+      // meat.next(); // value: Array[2], done: false
+      // meat.next(); // value: Array[2], done: false
+      // meat.next(); // value: Array[2], done: false
+      // meat.next(); // value: Array[2], done: false
+      // meat.next(); // value: undefined, done: true
 
-      // function addUpNumbers() {
-      //   let total = 0;
-      //   for (const num of arguments) {
-      //     total += num;
-      //   }
-      //   console.log(total);
-      //   return total;
-      // }
+      // use cuts.entries to get an iterator
+      // destructure the cuts.entries loop item since it is an array of 2
+      for (const [i, cut] of cuts.entries()) {
+        console.log(`${cut} is the ${i + 1} item`);
+      }
 
-      // addUpNumbers(10,23,52,34,12,13,123);
+      // let's say we do not know how many numbers will be passed into this function
+      function addUpNumbers() {
+        // arguments is a special word, an array-ish element
+        // this is not an array because the prototype is not an array
+        // it has a list with a length on it
+        // you can iterate it over a for of loop, because it has a symblo of iterator
+        // or you can convert it to an array
+        console.log(arguments);
+        let total = 0;
+        for (const num of arguments) {
+          total += num;
+        }
+        console.log(total);
+        return total;
+      }
+
+      addUpNumbers(10, 23, 52, 34, 12, 13, 123);
 
       // const name = 'Wes Bos';
       // for (const char of name) {

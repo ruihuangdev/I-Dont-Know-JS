@@ -26,27 +26,37 @@
       cuts.shop = "MM MEats";
 
       // traditional loop
-      // for (let i = 0; i < cuts.length; i++) {
-      //   console.log(cuts[i]);
-      // }
+      // downside: just messy syntax, generally speaking
+      console.log("Traditional Loop:");
+      for (let i = 0; i < cuts.length; i++) {
+        console.log(cuts[i]);
+      }
 
       // foreach + arrow function
-      // downside being you can't stop or skip loop iteration
-      // cuts.forEach(cut => {
-      //   console.log(cut);
-      // });
+      // downside: you can't stop or skip loop iteration
+      // for example, use break; or continue;
+      console.log("foreach + arrow function:");
+      cuts.forEach(cut => {
+        console.log(cut);
+      });
 
+      // for ... in ... loop
       // downside of this being it iterates everything in the array
-      // even the stuff added to the prototype
-      // for (const index in cuts) {
-      //   console.log(cuts[index]);
-      // }
+      // especially if a method is added to the prototype, or the cuts.shop property
+      // this is dangerous especially when library interacts with the prototype
+      console.log("for in loop:");
+      for (const index in cuts) {
+        console.log(cuts[index]);
+      }
 
       // for of loop
+      // can't be used for objects
       // use const so cut doesn't get leaked to global
+      console.log("for of loop");
       for (const cut of cuts) {
         if (cut === "Brisket") {
           continue;
+          // skip brisket. Think of it as return in a function
         }
         console.log(cut);
       }
