@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>The ...Spread Operator</title>
-</head>
-<body>
-<script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>The ...Spread Operator</title>
+  </head>
+  <body>
+    <script>
+      // iterable: is everything that can be looped over by a for of loop
+      // includes arrays, strings, DOM Nodes, arguments objects, maps and sets
+      // spread operator takes every single item from an iterable,
+      // applying it to the containing array or containing array
 
-  const featured = ['Deep Dish', 'Pepperoni', 'Hawaiian'];
-  const specialty = ['Meatzza', 'Spicy Mama', 'Margherita'];
+      const featured = ["Deep Dish", "Pepperoni", "Hawaiian"];
+      const specialty = ["Meatzza", "Spicy Mama", "Margherita"];
 
-  const pizzas = [...featured, 'veg', ...specialty];
-  const fridayPizzas = [...pizzas];
+      const pizzs = featured.concat(specialty);
+      console.log(pizzs);
+      // how do you add something in the middle of pizzs?
 
-  const deepDish = {
-    pizzaName: 'Deep Dish',
-    size: 'Medium',
-    ingredients: ['Marinara', 'Italian Sausage', 'Dough', 'Cheese']
-  };
+      const pizzas = [...featured, "veg", ...specialty];
+      const fridayPizzas = [...pizzas];
 
-</script>
-</body>
+      const deepDish = {
+        pizzaName: "Deep Dish",
+        size: "Medium",
+        ingredients: ["Marinara", "Italian Sausage", "Dough", "Cheese"]
+      };
+    </script>
+  </body>
 </html>
