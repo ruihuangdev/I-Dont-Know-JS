@@ -26,3 +26,5 @@ const cat = "Mochi";
 
 // export multiple at once
 export { dog, cat };
+
+export const url = "https://ruihuang.io";

@@ -7,10 +7,12 @@ import apiKey from "./config";
 // no need to put js
 import { apiKey2, sayHello } from "./config";
 // this is a named export syntax
-const ages = [1, 1, 3, 13, 5, 6];
 
-console.log(uniq(ages));
-console.log(apiKey);
-console.log(apiKey2);
+import User, { createURL, gravatar } from "./user";
 
-sayHello("Rui");
+const rui = new User("Rui Huang", "ruihuang@ruihuang.io", "ruihuang.io");
+const profile = createURL(rui.name);
+console.log(profile);
+
+const image = gravatar(rui.email);
+console.log(image);
