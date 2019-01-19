@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Arrow functions → →</title>
+  </head>
+  <body>
+    <script>
+      const names = ["rui", "trang", "mochi"];
+
+      // using function assignment
+      const fullNames = names.map(function(name) {
+        return `${name} bruh`;
+      });
+
+      console.log(fullNames);
+
+      // using arrow function
+      const fullNames2 = names.map(name => {
+        return `${name} bruh`;
+      });
+
+      console.log(fullNames2);
+
+      // using arrow function with implicit return
+      const fullNames3 = names.map(name => `${name} bruh`);
+      console.log(fullNames3);
+
+      // or
+      const fullNames4 = names.map(() => `bruh`);
+      console.log(fullNames4);
+
+      //using named functions
+      function sayMyName(name) {
+        alert(`Hello ${name}`);
+      }
+
+      //arrow functions can't be named, but you can do this
+      const sayMyName2 = name => {
+        alert(`Hello ${name}`);
+      };
+    </script>
+  </body>
+</html>

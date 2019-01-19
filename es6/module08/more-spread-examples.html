@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spread Examples</title>
+  </head>
+  <body>
+    <div class="people">
+      <p>Rui</p>
+      <p>Bruh</p>
+      <p>Mochi</p>
+    </div>
+    <script>
+      const people = Array.from(document.querySelectorAll(".people p"));
+      // Alternatively, you can do
+      // const people = [... document.querySelectorAll(".people p")) ];
+      console.log(people); // if we don't do Array.from, it would be a Nodelist
+      // you can't do people.map because it doesn't have a map function
+      const names = people.map(person => person.textContent);
+      console.log(names);
+
+      // Another user case is when you wanna create a new array
+      // off of a property on an object
+      const deepDish = {
+        pizzaName: "Deep Dish",
+        size: "Medium",
+        ingredients: ["Marinara", "Italian Sausage", "Dough", "Cheese"]
+      };
+
+      const shoppingList = ["Milk", "Flour", ...deepDish.ingredients];
+      console.log(shoppingList);
+
+      // Third use case, when you have an array of objects
+      // need to remove an object from that array
+      const comments = [
+        { id: 209384, text: "I love your dog!" },
+        { id: 523423, text: "Cuuute! 🐐" },
+        { id: 632429, text: "You are so dumb" },
+        { id: 192834, text: "Nice work on this wes!" }
+      ];
+      const id = 632429;
+
+      // first find where in the array is this objects
+      const commentIndex = comments.findIndex(comment => comment.id === id);
+      console.log(commentIndex);
+
+      // create a new array with everything until the target
+      // and everything after
+
+      // If you do it like this:
+      // const newComments = [
+      //   comments.slice(0, commentIndex),
+      //   comments.slice(commentIndex + 1)
+      // ];
+      // You will get an arrays of arrays [ Array[2]. Array[1]]
+      // What we really want is an array of common objects
+      const newComments = [
+        ...comments.slice(0, commentIndex),
+        ...comments.slice(commentIndex + 1)
+        // no need for 2nd argument, as that will go to the end of the array
+      ];
+      // using spread operator, we will take every item out of the array
+      // And put them into the new comment array
+      console.log(newComments);
+    </script>
+  </body>
+</html>

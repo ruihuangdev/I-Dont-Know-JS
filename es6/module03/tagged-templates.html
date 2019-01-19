@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tagged Templates</title>
+    <style>
+      .hl {
+        background: #ffc600;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // ...values take the rest of the values and put them into the array
+      function highlight(strings, ...values) {
+        // over here, strings is an array of the string being broken up into longest string until a variable interrupts it
+        // values is an array of the variables being passed into the function
+        // strings will always have one more value than values (by appending ""s)
+
+        let str = "";
+        strings.forEach((string, i) => {
+          str += `${string} <span contenteditable class="hl">${values[i] ||
+            ""}</span>`;
+          // tenary select is used if no values (since strings have one higher value), display nothing
+        });
+        return str;
+      }
+
+      const name = "Snickers";
+      const age = 100;
+
+      // put the name of the function right in front of the string template
+      // this is called tagging a function name
+      const sentence = highlight`My dog's name is ${name} and he is ${age} years old`;
+      document.body.innerHTML = sentence;
+      console.log(sentence);
+    </script>
+  </body>
+</html>

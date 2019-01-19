@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Creating Promises!</title>
+  </head>
+  <body>
+    <script>
+      // you can create your own promises
+      // the idea is that the promise is either going to resolve,
+      // which means it gets the data back to you,
+      // or it could reject
+      const p = new Promise((resolve, reject) => {
+        // if we do something like
+        // resolve('resolved') immediately
+        // the then will be resolved immediately as well
+        setTimeout(() => {
+          // reject will be what catch gets
+          // add Error() will help the console debugger
+          reject(Error("Promise error"));
+        }, 1000);
+      });
+
+      // if we wanna resolve something after some amount of time
+      // maybe some processing or ajax request
+      // a promise won't stop js from running
+      p.then(data => {
+        console.log(data);
+      }).catch(err => {
+        console.error(err);
+      });
+    </script>
+  </body>
+</html>

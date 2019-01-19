@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array .from() and .of()</title>
+  </head>
+  <body>
+    <div class="people">
+      <p>Wes</p>
+      <p>Kait</p>
+      <p>Snickers</p>
+    </div>
+    <script>
+      // Array.from and Array.of are not in the array prototype
+      // Array.from takes something that is array-ish and convert it to an array
+      // commonly used for DOM elements
+
+      const people = document.querySelectorAll(".people p");
+
+      // Array.from takes a second argument,
+      // a map function that allows us to modify the data as we create the array
+      const peopleArray = Array.from(people, person => {
+        // in here is the map function,
+        // return what we want
+        console.log(person);
+        return person.textContent;
+      });
+      console.log(peopleArray);
+
+      // const names = people.map(person => person.textContent);
+      // This will give you an error: people.map is not a function
+      // prototype is a nodeList, which is array-like / array-ish
+      // what it means is it has a length and some of the method of an array
+      // but not all of the methods an array has
+
+      // another usecase for this is to convert the argument object into an array
+
+      function sumAll() {
+        const nums = Array.from(arguments);
+        // arguments is an array-ish object
+        return nums.reduce((prev, next) => prev + next, 0);
+      }
+
+      sumAll(2, 34, 23, 234, 234, 234234, 234234, 2342);
+
+      // creates an array from every single argument being passed into
+      const ages = Array.of(12, 4, 23, 62, 34);
+      console.log(ages);
+    </script>
+  </body>
+</html>

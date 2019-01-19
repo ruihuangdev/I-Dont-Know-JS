@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chaining Promises</title>
+  </head>
+  <body>
+    <script>
+      // in some cases you wanna fire off promises at the same time
+      // when they are not dependent on each other
+
+      const weather = new Promise(resolve => {
+        setTimeout(() => {
+          resolve({ temp: 29, conditions: "Sunny with Clouds" });
+        }, 2000);
+      });
+
+      const tweets = new Promise(resolve => {
+        setTimeout(() => {
+          resolve(["I like cake", "BBQ is good too!"]);
+        }, 500);
+      });
+
+      // pass in an array of promises
+      // all() indicates that we are waiting for every single promise to resolve
+      // before we run then()
+      Promise.all([weather, tweets]).then(responses => {
+        const [weatherInfo, tweetInfo] = responses;
+        console.log(weatherInfo, tweetInfo);
+      });
+
+      // use two apis
+      const postsPromise = fetch("https://wesbos.com/wp-json/wp/v2/posts");
+      const streetCarsPromise = fetch(
+        "http://data.ratp.fr/api/datasets/1.0/search/?q=paris"
+      );
+
+      // passing array of promises, just like last one
+      Promise.all([postsPromise, streetCarsPromise])
+        .then(responses => {
+          // convert readable stream to json
+          // take each of the response and map
+          return Promise.all(responses.map(res => res.json()));
+        })
+        .then(responses => {
+          console.log(responses);
+        });
+    </script>
+  </body>
+</html>

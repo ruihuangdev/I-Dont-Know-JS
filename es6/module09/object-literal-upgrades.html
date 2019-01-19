@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Object Literal Upgrades</title>
+  </head>
+  <body>
+    <script>
+      const first = "snickers";
+      const last = "bos";
+      const age = 2;
+      const breed = "King Charles Cav";
+
+      // make an object the old way, very repetitive
+
+      // const dog = {
+      //   first: first,
+      //   last: last,
+      //   age: age,
+      //   breed: breed
+      // }
+
+      // if they are the same name, you can just do
+      // you can still rename the properties, of course
+      const dog = {
+        firstName: first,
+        last,
+        age,
+        breed,
+        pals: ["Hugo", "Sunny"]
+      };
+
+      console.log(dog);
+
+      // old way to make an object with functions
+      // const modal = {
+      //   create: function() {},
+      //   open: function() {},
+      //   close: function() {}
+      // };
+
+      // you can create functions only using the function name
+      // leave out : and the word 'function'.
+      // There is no messing with this
+      // therefore arrow function might not be the best use case here
+      // you can also pass in params
+
+      const modal = {
+        create(selector) {},
+        open(content) {},
+        close(goodbye) {}
+      };
+
+      // computed property names
+
+      // this is a function that inverse the hex code of a color
+      function invertColor(color) {
+        return (
+          "#" +
+          (
+            "000000" +
+            (0xffffff ^ parseInt(color.substring(1), 16)).toString(16)
+          ).slice(-6)
+        );
+      }
+
+      // let's say we make a t-shirt maker
+      // and we want to computer the inverse color of a color
+      const key = "pocketColor";
+      const value = "#ffc600";
+
+      // object literal
+      // we can use js right inside the property
+      const tShirt = {
+        [key]: value,
+        [`${key}Opposite`]: invertColor(value)
+      };
+      console.log(tShirt);
+
+      // when you get funky data from an api
+      const keys = ["size", "color", "weight"];
+      const values = ["medium", "red", 100];
+
+      // use shift array method to pluck off array values
+      const shirt = {
+        [keys.shift()]: values.shift(),
+        [keys.shift()]: values.shift(),
+        [keys.shift()]: values.shift()
+      };
+      console.log(shirt);
+    </script>
+  </body>
+</html>

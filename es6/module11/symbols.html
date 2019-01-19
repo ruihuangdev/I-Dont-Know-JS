@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Symbols</title>
+  </head>
+  <body>
+    <script>
+      // symbol is the 7th primitive type of js
+      // the existing six are: number, string, object, boolean, null & undefined
+      // symbols are unique indentifiiers
+      // they avoid us of having naming collisions
+
+      const rui = Symbol("Rui");
+      // "Rui" is not a value, it is an descriptor
+      const person = Symbol("Rui");
+
+      // console.log(rui === person); // false
+      // console.log(rui == person); // false
+      // symbols are absolutely unique
+
+      // overhere, we have an object with a naming collision
+      const classRoom = {
+        [Symbol("Mark")]: { grade: 50, gender: "male" },
+        [Symbol("olivia")]: { grade: 80, gender: "female" },
+        [Symbol("olivia")]: { grade: 80, gender: "female" }
+      };
+      console.log(classRoom);
+      // the two olivias are now separated
+
+      // symbols are not enumerable
+      for (const person in classRoom) {
+        console.log(person); // nothing
+      }
+      // due to the nature of symbol, you can put private data in symbols
+
+      const syms = Object.getOwnPropertySymbols(classRoom);
+      console.log(syms);
+      // symbols are not the actual objects
+      // they are the property keys
+      // to retrieve values, map over them
+      const data = syms.map(sym => classRoom[sym]);
+      console.log(data);
+    </script>
+  </body>
+</html>
