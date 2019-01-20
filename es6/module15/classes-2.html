@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inheritance Review</title>
+  </head>
+  <body>
+    <script>
+      // there are two ways to declare a class
+      // class Dog {} is a class declareation
+      // const Dog = class {} is a variable declaration
+      class Dog {
+        // the only method that is absolutely required is a constructor
+        constructor(name, breed) {
+          this.name = name;
+          this.breed = breed;
+        }
+        // this part is exactly the same as the declare function
+        // no comma between methods
+        bark() {
+          console.log(`Bark Bark! My name is ${this.name}`);
+        }
+        cuddle() {
+          console.log(`I love you owner!`);
+        }
+        // static method
+        // can only be called by Dog directly, but not from sunny or snickers
+        static info() {
+          console.log("A dog is better than a cat by 10 times, NOT");
+        }
+        // this is a method, but a getter that can be computed
+        get description() {
+          return `${this.name} is a ${this.breed} type of dog`;
+        }
+        // similarly, we have a setter
+        set nicknames(value) {
+          this.nick = value.trim();
+        }
+        // using setter and getter, we can return a value the way we want it to be
+        get nicknames() {
+          return this.nick.toUpperCase();
+        }
+      }
+
+      const snickers = new Dog("Snickers", "King Charles");
+      const sunny = new Dog("Sunny", "Golden Doodle");
+    </script>
+  </body>
+</html>

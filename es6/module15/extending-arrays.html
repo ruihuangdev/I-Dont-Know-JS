@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Extending</title>
-</head>
-<body>
-<script>
-  class MovieCollection extends Array {
-    constructor(name, ...items) {
-      super(...items);
-      this.name = name;
-    }
-    add(movie) {
-      this.push(movie);
-    }
-    topRated(limit = 10) {
-      return this.sort((a, b) => (a.stars > b.stars ? -1 : 1)).slice(0, limit);
-    }
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Extending</title>
+  </head>
+  <body>
+    <script>
+      // create a new MovieCollection class extending the built-in Array
+      class MovieCollection extends Array {
+        constructor(name, ...items) {
+          // use rest operator here
+          super(...items);
+          // we want to pass in each item of movies into super
+          // the rest operator is doing that here
+          this.name = name;
+        }
+        add(movie) {
+          this.push(movie);
+        }
+        topRated(limit = 10) {
+          return this.sort((a, b) => (a.stars > b.stars ? -1 : 1)).slice(
+            0,
+            limit
+          );
+        }
+      }
 
-  const movies = new MovieCollection('Wes\'s Fav Movies',
-    { name: 'Bee Movie', stars: 10 },
-    { name: 'Star Wars Trek', stars: 1 },
-    { name: 'Virgin Suicides', stars: 7 },
-    { name: 'King of the Road', stars: 8 }
-  );
+      const movies = new MovieCollection(
+        "Rui's Fav Movies",
+        { name: "Bee Movie", stars: 10 },
+        { name: "Star Wars Trek", stars: 1 },
+        { name: "Virgin Suicides", stars: 7 },
+        { name: "King of the Road", stars: 8 }
+      );
 
-  movies.add({ name: 'Titanic', stars: 5 });
+      movies.add({ name: "Titanic", stars: 5 });
 
-</script>
-</body>
+      // be mindful of the funny stuff that goes on here with calling for in loop on movies
+      // since we passed a name property, for movie in movies will return 6 items [1, 2, 3, 4, 5, "name"]
+      // first five are the indexes and the 6th is the name property being passed in.
+    </script>
+  </body>
 </html>

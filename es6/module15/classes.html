@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Inheritance Review</title>
-</head>
-<body>
-<script>
-  function Dog(name, breed) {
-    this.name = name;
-    this.breed = breed;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inheritance Review</title>
+  </head>
+  <body>
+    <script>
+      // let's have a dog function that creates dogs
+      // capitalize the Dog function because this is a constructor function
+      function Dog(name, breed) {
+        this.name = name;
+        this.breed = breed;
+      }
 
-  Dog.prototype.bark = function() {
-    console.log(`Bark Bark! My name is ${this.name}`);
-  };
+      // prototypal inheritance is when a method on a constructor,
+      // it will be inherited by the rest of the instances
+      Dog.prototype.bark = function() {
+        console.log(`Bark Bark! My name is ${this.name}`);
+      };
 
-  Dog.prototype.cuddle = function() {
-    console.log(`I love you owner!`);
-  };
+      Dog.prototype.cuddle = function() {
+        console.log(`I love you owner!`);
+      };
 
-  const snickers = new Dog('Snickers', 'King Charles');
-  const sunny = new Dog('Sunny', 'Golden Doodle');
-
-</script>
-</body>
+      // it doesn't matter if the method is added before or after the instance has been created
+      // name and breed are specific to the instance
+      // bark and cuddle are inherited from the prototype itself
+      const snickers = new Dog("Snickers", "King Charles");
+      const sunny = new Dog("Sunny", "Golden Doodle");
+    </script>
+  </body>
 </html>

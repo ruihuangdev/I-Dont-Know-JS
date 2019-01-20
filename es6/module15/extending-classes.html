@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Extending Classes</title>
-</head>
-<body>
-<script>
-  class Animal {
-    constructor(name) {
-      this.name = name;
-      this.thirst = 100;
-      this.belly = [];
-    }
-    drink() {
-      this.thirst -= 10;
-      return this.thirst;
-    }
-    eat(food) {
-      this.belly.push(food);
-      return this.belly;
-    }
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Extending Classes</title>
+  </head>
+  <body>
+    <script>
+      class Animal {
+        constructor(name) {
+          this.name = name;
+          this.thirst = 100;
+          this.belly = [];
+        }
+        drink() {
+          this.thirst -= 10;
+          return this.thirst;
+        }
+        eat(food) {
+          this.belly.push(food);
+          return this.belly;
+        }
+      }
 
-  class Dog extends Animal {
-    constructor(name, breed) {
-      super(name);
-      this.breed = breed;
-    }
-    bark() {
-      console.log('Bark bark I\'m a dog');
-    }
-  }
+      // extend the Animal class to have more specifications
 
-  const rhino = new Animal('Rhiney');
-  const snickers = new Dog('Snickers', 'King Charles');
+      class Dog extends Animal {
+        constructor(name, breed) {
+          // can't use this here
+          // because the Animal is not defined yet
+          // we can use super to instantiate an instance
+          super(name);
+          // refer to what Animal needs
+          this.breed = breed;
+        }
+        bark() {
+          console.log("Bark bark I'm a dog");
+        }
+      }
 
-</script>
-</body>
+      // initiate an instance of Animal
+      const rhino = new Animal("Rhiney");
+      const snickers = new Dog("Snickers", "King Charles");
+    </script>
+  </body>
 </html>
