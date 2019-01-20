@@ -6,16 +6,19 @@
   "scripts": {
     "babel": "babel app.js --watch --out-file app-compiled.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "babel-cli": "^7.0.0-beta.1",
-    "babel-preset-env": "^2.0.0-beta.1"
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3"
   },
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
             "browsers": [
@@ -25,12 +28,6 @@
           }
         }
       ]
-    ],
-    "plugins": [
-      "transform-object-rest-spread"
     ]
-  },
-  "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   }
 }
