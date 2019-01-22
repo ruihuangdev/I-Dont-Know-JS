@@ -7,20 +7,23 @@
   <body>
     <script>
       // proxies allow you to overwrite the default operator on an object
-      const person = { name: "Wes", age: 100 };
+      const person = { name: "Rui", age: 100 };
+      // specify what object would you like to proxy in the first argument
+      // second argument is a handler. it specifies all the operator you wish to rewrite
       const personProxy = new Proxy(person, {
         get(target, name) {
-          // console.log('someone is asking for ', target, name);
+          console.log("someone is asking for ", target, name);
           return target[name].toUpperCase();
         },
         set(target, name, value) {
           if (typeof value === "string") {
-            target[name] = value.trim().toUpperCase() + "✂️";
+            target[name] = value.trim().toUpperCase() + " cat";
           }
         }
       });
 
-      personProxy.name = "Wesley";
+      personProxy.name = "Mochi";
+      // we are setting the property on the proxy
     </script>
   </body>
 </html>
