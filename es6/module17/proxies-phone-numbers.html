@@ -6,10 +6,17 @@
   </head>
   <body>
     <script>
+      // phone numbers are a good case for proxies,
+      // as different people put it in differently,
+      // but we want them to return the same type of value
+
+      // start a phoneHandler that set and get the value
       const phoneHandler = {
+        // set method to store a number to be pure numbers
         set(target, name, value) {
           target[name] = value.match(/[0-9]/g).join("");
         },
+        // return the number to format the way we want them to.
         get(target, name) {
           return target[name].replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
         }

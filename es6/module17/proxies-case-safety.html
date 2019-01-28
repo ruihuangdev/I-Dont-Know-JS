@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Proxies!</title>
-</head>
-<body>
-<script>
-  const safeHandler = {
-    set(target, name, value) {
-      const likeKey = Object.keys(target).find(k => k.toLowerCase() === name.toLowerCase());
+  <head>
+    <meta charset="UTF-8" />
+    <title>Proxies!</title>
+  </head>
+  <body>
+    <script>
+      // another good use case for proxy is to create a safety rule
+      const safeHandler = {
+        set(target, name, value) {
+          // make  a list of like keys
+          const likeKey = Object.keys(target).find(
+            k => k.toLowerCase() === name.toLowerCase()
+            // do toLowerCase on both to ensure we match every char in the string
+          );
 
-      if (!(name in target) && likeKey) {
-        throw new Error(`Oops! Looks like like we already have a(n) ${name} property but with the case of ${likeKey}.`);
-      }
-      target[name] = value;
-    }
-  };
+          // not going to update if name is not in target but there is a similar one with different cases
+          if (!(name in target) && likeKey) {
+            throw new Error(
+              `Oops! Looks like like we already have a(n) ${name} property but with the case of ${likeKey}.`
+            );
+          }
+          target[name] = value;
+        }
+      };
 
-  const safety = new Proxy({ id: 100 }, safeHandler);
+      const safety = new Proxy({ id: 100 }, safeHandler);
 
-  safety.ID = 200;
-
-</script>
-</body>
+      safety.ID = 200;
+    </script>
+  </body>
 </html>

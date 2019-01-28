@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Sets</title>
-</head>
-<body>
-<script>
-  const people = new Set();
-  people.add('Wes');
-  people.add('Snickers');
-  people.add('Kait');
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sets</title>
+  </head>
+  <body>
+    <script>
+      // think of sets as a list of items that we can add to, remove from and loop over
+      const people = new Set();
+      people.add("Rui");
+      people.add("Bebe");
+      people.add("Mochi");
 
-  for (const person of  people) {
-    console.log(person);
-  }
+      // you can call people.size but not people.length because they can't be accessed by index
+      // you can delete by doing people.delete("Mochi"), without knowing the array
+      // people.clear clear the value of people
 
-  const students = new Set(['Wes', 'Kara', 'Tony']);
+      // values of a set is a setIterator (from generator)
+      // which means they are iterable
+      for (const person of people) {
+        console.log(person);
+      }
 
-  const dogs = ['Snickers', 'Sunny'];
-  const dogSet = new Set(dogs);
+      // people.keys returns setIterator {"Rui", "Bebe", "Mochi"}
+      // people.entries returns setIterator {["Rui", "Rui"], ["Bebe", "Bebe"], ["Mochi", "Mochi"]}
 
-</script>
-</body>
+      // You can initialize a set by passing in values
+      const students = new Set(["Rui", "Jason", "Huy"]);
+
+      // You can also pass an array into a set
+      const cats = ["Mochi", "Cookie"];
+      const catSet = new Set(cats);
+
+      // catSet.has("mochi") returns true
+      // you can add the same value to a set repeatedly
+    </script>
+  </body>
 </html>

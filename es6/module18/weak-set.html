@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Brunch with Sets</title>
-</head>
-<body>
-<script>
-  let dog1 = { name: 'Snickers', age: 3 };
-  let dog2 = { name: 'sunny', age: 1 };
+  <head>
+    <meta charset="UTF-8" />
+    <title>WeakSet</title>
+  </head>
+  <body>
+    <script>
+      // a weak set is just like a set with some tweaks
+      let dog1 = { name: "Snickers", age: 3 };
+      let dog2 = { name: "sunny", age: 1 };
 
-  const weakSauce = new WeakSet([dog1, dog2]);
+      const weakSauce = new WeakSet([dog1, dog2]);
+      // alternatively, do
+      // weakSauce.add(dog1)
+      // weakSauce.add(dog2)
 
-  console.log(weakSauce);
-  dog1 = null;
-  console.log(weakSauce);
+      // A weakset can only contain objects, not other data format
+      // also, weaksets are not iterable
+      // lastly, there is no .clear() method
 
-</script>
-</body>
+      // a weakset sort of cleans itself up
+      // if dog2 gets deleted, dog2 in the weakset will automatically be garbage collected
+      // therefore, weakset is a set that is weakly held
+      console.log(weakSauce);
+      dog1 = null;
+      console.log(weakSauce);
+      // weakSauce only has dog2 in both cases
+    </script>
+  </body>
 </html>
