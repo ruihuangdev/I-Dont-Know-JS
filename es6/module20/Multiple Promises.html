@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Async Await</title>
+  </head>
 
-<head>
-  <title>Async Await</title>
-</head>
+  <body>
+    <script>
+      // dealing with multiple promises can be tricky
+      async function go() {
+        // overhere, this function will take very long to run
+        // because it won't run p2 until p1 is finished
+        const p1 = fetch("https://api.github.com/users/wesbos").then(res =>
+          res.json()
+        );
+        const p2 = fetch("https://api.github.com/users/stolinski").then(res =>
+          res.json()
+        );
 
-<body>
-  <script>
-    // async function go() {
-    //   const p1 = fetch('https://api.github.com/users/wesbos');
-    //   const p2 = fetch('https://api.github.com/users/stolinski');
-    //   // Wait for both of them to come back
-    //   const res = await Promise.all([p1, p2]);
-    //   const dataPromises = res.map(r => r.json());
-    //   const [wes, scott] = await Promise.all(dataPromises);
-    //   console.log(wes, scott);
-    // }
+        // wait for both to come back
+        const res = await Promise.all([p1, p2]);
+        console.log(res);
+      }
+      // alternatively,
+      async function go2() {
+        // overhere, this function will take very long to run
+        // because it won't run p2 until p1 is finished
+        const p1 = fetch("https://api.github.com/users/wesbos");
+        const p2 = fetch("https://api.github.com/users/stolinski");
 
-    // go();
+        const res = await Promise.all([p1, p2]);
+        // take the response promises and map over each one
+        // return json
+        const dataPromises = res.map(r => r.json());
+        // destructure the output
+        const [wes, scott] = await Promise.all(dataPromises);
+        console.log(wes, scott);
+      }
 
-    async function getData(names) {
-      const promises = names.map(name => fetch(`https://api.github.com/users/${name}`).then(r => r.json()));
-      const people = await Promise.all(promises);
-      console.log(people);
-    }
+      go();
+      go2();
 
-    getData(['wesbos', 'stolinski', 'darcyclarke']);
-  </script>
-</body>
+      async function getData(names) {
+        const promises = names.map(name =>
+          fetch(`https://api.github.com/users/${name}`).then(r => r.json())
+        );
+        const people = await Promise.all(promises);
+        // const people = await Promise.race(promises);
+        // use this if we only care about the first one to come back
+        console.log(people);
+      }
 
+      getData(["wesbos", "stolinski"]); // we can add more people
+    </script>
+  </body>
 </html>

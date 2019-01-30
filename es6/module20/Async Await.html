@@ -1,47 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Async Await</title>
+  </head>
 
-<head>
-  <title>Async Await</title>
-</head>
-
-<body>
-  <script>
-    function breathe(amount) {
-      return new Promise((resolve, reject) => {
-        if (amount < 500) {
-          reject('That is too small of a value');
-        }
-        setTimeout(() => resolve(`Done for ${amount} ms`), amount);
-      });
-    }
-
-    function catchErrors(fn) {
-      return function (...args) {
-        return fn(...args).catch((err) => {
-          console.error('Ohhhh nooo!!!!!');
-          console.error(err);
+  <body>
+    <script>
+      function breath(amount) {
+        return new Promise((resolve, reject) => {
+          if (amount < 500) {
+            reject("That is too small of a value");
+          }
+          setTimeout(() => resolve(`Done for ${amount} ms`), amount);
         });
       }
-    }
+      // await is built on top of promises
+      // so we will need a function that returns a promise
+      // await breath(1500); is a top level await
+      // it doesn't run by itself. It has to be put in a async function
 
-    async function go(name, last) {
-      console.log(`Starting for ${name} ${last}!`);
-      const res = await breathe(1000);
-      console.log(res);
-      const res2 = await breathe(300);
-      console.log(res2);
-      const res3 = await breathe(750);
-      console.log(res3);
-      const res4 = await breathe(900);
-      console.log(res4);
-      console.log('end');
-    }
+      // to handle error, wrap the awaits in a try catch block
+      // async function go() {
+      //   try {
+      //     const res1 = await breath(600);
+      //     console.log(res1);
+      //     const res2 = await breath(600);
+      //     console.log(res2);
+      //     const res3 = await breath(300);
+      //     console.log(res3);
+      //     const res4 = await breath(600);
+      //     console.log(res4);
+      //   } catch (err) {
+      //     console.error(err);
+      //   }
+      // }
+      // go();
 
-    const wrappedFunction = catchErrors(go);
+      // alternatively, we can write a higher order function
+      // catchErrors can take any function as an argument
+      function catchErrors(fn) {
+        return function(...args) {
+          // return function passed in and run it
+          // pass in ...args in the case where the returning function takes arguments
+          return fn(...args).catch(err => {
+            console.error(err);
+          });
+        };
+      }
+      async function go(name) {
+        console.log(`Starting for ${name}`);
+        const res1 = await breath(600);
+        console.log(res1);
+        const res2 = await breath(600);
+        console.log(res2);
+        const res3 = await breath(300);
+        console.log(res3);
+        const res4 = await breath(600);
+        console.log(res4);
+      }
 
-    wrappedFunction('Wes', 'Bos');
-  </script>
-</body>
+      const wrappedFunction = catchErrors(go);
 
+      wrappedFunction("Rui");
+    </script>
+  </body>
 </html>
