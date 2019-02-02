@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Object .entries() and .values()</title>
+  </head>
 
-<head>
-  <title>Object .entries() and .values()</title>
-</head>
+  <body>
+    <ul class="nav"></ul>
+    <script>
+      const inventory = {
+        backpacks: 10,
+        jeans: 23,
+        hoodies: 4,
+        shoes: 11
+      };
 
-<body>
-  <script>
-    const inventory = {
-      backpacks: 10,
-      jeans: 23,
-      hoodies: 4,
-      shoes: 11
-    };
+      // Make a nav for the inventory
+      const nav = Object.keys(inventory)
+        .map(item => `<li>${item}</li>`)
+        .join("");
+      const navi = document.querySelector(".nav");
+      navi.innerHTML = nav;
 
-    // Make a nav for the inventory
-    const nav = Object.keys(inventory).map(item => `<li>${item}</li>`).join('');
-    console.log(nav);
+      // tell us how many values we have
+      const totalInventory = Object.values(inventory).reduce((a, b) => a + b);
+      console.log(totalInventory);
 
-    // tell us how many values we have
-    const totalInventory = Object.values(inventory).reduce((a, b) => a + b);
-    console.log(totalInventory);
+      // print on inventory list with numbers
+      // destructure
+      Object.entries(inventory).forEach(([key, val]) => {
+        console.log(key, val);
+      });
 
-    // Print an inventory list with numbers
-    Object.entries(inventory).forEach(([key, val]) => {
-      console.log(key, val);
-    });
-
-    for (const [key, val] of Object.entries(inventory)) {
-      console.log(key);
-      if (key === 'jeans') break;
-    }
-  </script>
-</body>
-
+      // use for of loop in case we want to break the loop
+      for (const [key, val] of Object.entries(inventory)) {
+        console.log(key, val);
+        if (key === "jeans") {
+          break;
+        }
+      }
+    </script>
+  </body>
 </html>
