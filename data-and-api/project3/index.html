@@ -37,9 +37,16 @@
       const tiles = L.tileLayer(tileUrl, { attribution });
       tiles.addTo(mymap);
 
-      const marker = L.marker([0, 0]).addTo(mymap);
+      const issIcon = L.icon({
+        iconUrl: "iss.svg",
+        iconSize: [50, 32],
+        iconAnchor: [25, 16]
+      });
+
+      const marker = L.marker([0, 0], { icon: issIcon }).addTo(mymap);
 
       const iss_endpoint = "https://api.wheretheiss.at/v1/satellites/25544";
+      let initializeMap = true;
 
       async function getISS() {
         const response = await fetch(iss_endpoint);
@@ -47,13 +54,21 @@
         // es6 destructuring
         const { latitude, longitude } = data;
 
-        document.querySelector(".js-lat").textContent = latitude;
-        document.querySelector(".js-long").textContent = longitude;
+        document.querySelector(".js-lat").textContent = latitude.toFixed(2);
+        document.querySelector(".js-long").textContent = longitude.toFixed(2);
 
         marker.setLatLng([latitude, longitude]);
+
+        if (initializeMap) {
+          mymap.setView([latitude, longitude], 2);
+          initializeMap = false;
+        }
       }
 
       getISS();
+      // it is necessary to call getISS to initialize the DOM.
+      // setInterval actually waits an interval
+      setInterval(getISS, 1000);
     </script>
   </body>
 </html>
