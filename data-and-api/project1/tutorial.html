@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <img alt="rainbow" id="js-rainbow" width="480" />
+    <script>
+      console.log("fetching rainbow");
+
+      // fetch("rainbow.jpg")
+      //   .then(response => {
+      //     // the fetch response
+      //     console.log(response);
+      //     return response.blob();
+      //   })
+      //   .then(blob => {
+      //     // convert stream of data to a blob
+      //     console.log(blob);
+      //     // take the blob object and convert it to a format the image DOM element would expect
+      //     document.querySelector("#js-rainbow").src = URL.createObjectURL(blob);
+      //   })
+      //   .catch(error => {
+      //     console.error(error);
+      //   });
+
+      // conver to async await
+      async function catchRainbow() {
+        const response = await fetch("rainbow.jpg");
+        const blob = await response.blob();
+        document.querySelector("#js-rainbow").src = URL.createObjectURL(blob);
+      }
+
+      // call the async function
+      catchRainbow().catch(error => {
+        console.error(error);
+      });
+    </script>
+  </body>
+</html>

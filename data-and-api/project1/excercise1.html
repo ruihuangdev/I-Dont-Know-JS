@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      const files = ["images/01.jpg", "images/02.jpg", "images/03.jpg"];
+
+      // conver to async await
+      async function catchRainbow(images) {
+        for (let image of images) {
+          const response = await fetch(image);
+          const blob = await response.blob();
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(blob);
+          img.width = "200";
+          document.body.append(img);
+        }
+      }
+
+      // call the async function
+      catchRainbow(files).catch(error => {
+        console.error(error);
+      });
+    </script>
+  </body>
+</html>
