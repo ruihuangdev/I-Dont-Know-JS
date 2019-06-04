@@ -7,6 +7,22 @@
     <title>Document</title>
   </head>
   <body>
-    Bruv
+    <h1>Data Selfie App</h1>
+    <p>Latitude: <span id="js-lat"></span></p>
+    <p>Longitude: <span id="js-lng"></span></p>
+    <script>
+      if ("geolocation" in navigator) {
+        console.log("geolocation available");
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          document.querySelector("#js-lat").textContent = lat;
+          document.querySelector("#js-lng").textContent = lng;
+        });
+      } else {
+        console.log("geolocation not available");
+      }
+    </script>
   </body>
 </html>
