@@ -10,30 +10,36 @@
     <h1>Data Selfie App</h1>
     <p>Latitude: <span id="js-lat"></span></p>
     <p>Longitude: <span id="js-lng"></span></p>
+    <button class="js-submit">Submit</button>
     <script>
-      if ("geolocation" in navigator) {
-        console.log("geolocation available");
-        navigator.geolocation.getCurrentPosition(async position => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
+      const submit = document.querySelector(".js-submit");
+      submit.addEventListener("click", callApi);
 
-          document.querySelector("#js-lat").textContent = lat;
-          document.querySelector("#js-lng").textContent = lng;
+      function callApi() {
+        if ("geolocation" in navigator) {
+          console.log("geolocation available");
+          navigator.geolocation.getCurrentPosition(async position => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
 
-          const data = { lat, lng };
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-          };
-          const res = await fetch("/api", options);
-          const json = await res.json();
-          console.log(json);
-        });
-      } else {
-        console.log("geolocation not available");
+            document.querySelector("#js-lat").textContent = lat;
+            document.querySelector("#js-lng").textContent = lng;
+
+            const data = { lat, lng };
+            const options = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(data)
+            };
+            const res = await fetch("/api", options);
+            const json = await res.json();
+            console.log(json);
+          });
+        } else {
+          console.log("geolocation not available");
+        }
       }
     </script>
   </body>
