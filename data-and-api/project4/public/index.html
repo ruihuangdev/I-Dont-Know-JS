@@ -4,41 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
     <title>Document</title>
   </head>
   <body>
     <h1>Data Selfie App</h1>
     <p>Latitude: <span id="js-lat"></span></p>
     <p>Longitude: <span id="js-lng"></span></p>
+    <label for="mood">enter your mood</label>
+    <input id="mood" class="js-mood" value="rainbow" />
     <button class="js-submit">Submit</button>
     <script>
-      const submit = document.querySelector(".js-submit");
-      submit.addEventListener("click", callApi);
+      function setup() {
+        noCanvas();
+        const video = createCapture(VIDEO);
+        video.size(320, 240);
 
-      function callApi() {
-        if ("geolocation" in navigator) {
-          console.log("geolocation available");
-          navigator.geolocation.getCurrentPosition(async position => {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
+        const submit = document.querySelector(".js-submit");
+        submit.addEventListener("click", callApi);
 
-            document.querySelector("#js-lat").textContent = lat;
-            document.querySelector("#js-lng").textContent = lng;
+        function callApi() {
+          if ("geolocation" in navigator) {
+            console.log("geolocation available");
+            navigator.geolocation.getCurrentPosition(async position => {
+              const lat = position.coords.latitude;
+              const lng = position.coords.longitude;
+              const mood = document.querySelector(".js-mood").value;
 
-            const data = { lat, lng };
-            const options = {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(data)
-            };
-            const res = await fetch("/api", options);
-            const json = await res.json();
-            console.log(json);
-          });
-        } else {
-          console.log("geolocation not available");
+              video.loadPixels();
+              const image64 = video.canvas.toDataURL();
+
+              document.querySelector("#js-lat").textContent = lat;
+              document.querySelector("#js-lng").textContent = lng;
+
+              const data = { lat, lng, mood, image64 };
+              const options = {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+              };
+              const res = await fetch("/api", options);
+              const json = await res.json();
+              console.log(json);
+            });
+          } else {
+            console.log("geolocation not available");
+          }
         }
       }
     </script>
