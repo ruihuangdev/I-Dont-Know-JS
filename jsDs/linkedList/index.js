@@ -18,7 +18,7 @@ class Node {
 // const n1 = new Node(100);
 // console.log(n1);
 
-class LinkedList {
+export default class linkedList {
   constructor() {
     this.head = null;
     this.size = 0;
@@ -147,7 +147,7 @@ class LinkedList {
   }
 }
 
-const ll = new LinkedList();
+const ll = new linkedList();
 
 ll.insertFirst(100);
 ll.insertFirst(200);
