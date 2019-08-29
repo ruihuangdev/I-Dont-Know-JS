@@ -8,17 +8,17 @@
 // Tail has a referrence to NULL
 
 // This class represent each individual node
-class Node {
+export class Node {
   constructor(data, next = null) {
     this.data = data;
     this.next = next;
   }
 }
 
-// const n1 = new Node(100);
-// console.log(n1);
+const n1 = new Node(100);
+console.log(n1);
 
-export default class linkedList {
+export class linkedList {
   constructor() {
     this.head = null;
     this.size = 0;
@@ -85,7 +85,7 @@ export default class linkedList {
   }
 
   // get at index
-  getAt (index) {
+  getAt(index) {
     let current = this.head;
     let count = 0;
 
@@ -104,7 +104,7 @@ export default class linkedList {
 
   // remove at index
   removeAt(index) {
-    if(index > 0 && index > this.size) {
+    if (index > 0 && index > this.size) {
       return;
     }
 
@@ -113,10 +113,10 @@ export default class linkedList {
     let count = 0;
 
     // Remove first
-    if(index === 0) {
+    if (index === 0) {
       this.head = current.next;
     } else {
-      while( count < index) {
+      while (count < index) {
         count++;
         previous = current;
         current = current.next;
@@ -158,5 +158,5 @@ ll.insertAt(500, 2);
 
 ll.clearList();
 
-ll.printListData();
+// ll.printListData();
 // ll.getAt(20);
