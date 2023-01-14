@@ -22,6 +22,6 @@
     "babel-loader": "^8.0.5",
     "babel-preset-es2015-native-modules": "^6.9.4",
     "webpack": "^4.28.4",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.3.12"
   }
 }
